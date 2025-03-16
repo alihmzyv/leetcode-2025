@@ -1,8 +1,7 @@
 package medium;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Stack;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class KthSmallestElementInABST {
 
@@ -17,23 +16,53 @@ public class KthSmallestElementInABST {
     }
 
     public int kthSmallest(TreeNode root, int k) {
-        Set<Integer> nums = new HashSet<>();
-        Stack<TreeNode> nodes = new Stack<>();
-        nodes.add(root);
-        while (!nodes.isEmpty()) {
-            TreeNode node = nodes.pop();
-            nums.add(node.val);
-            if (node.left != null) {
-                nodes.add(node.left);
-            }
-            if (node.right != null) {
-                nodes.add(node.right);
+        Stack<TreeNode> stack = new Stack<>();
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.peek();
+            if (node == null) {
+                stack.pop();
+            } else {
+                TreeNode left = node.left;
+                TreeNode right = node.right;
+                if (left != null) {
+                    stack.push(left);
+                    node.left = null;
+                } else if (right == null) {
+                    int valTraversed = stack.pop().val;
+                    if (--k == 0) {
+                        return valTraversed;
+                    }
+                } else {
+                    int valTraversed = stack.pop().val;
+                    if (--k == 0) {
+                        return valTraversed;
+                    }
+                    stack.push(right);
+                }
             }
         }
-        return nums.stream()
-                .sorted()
-                .skip(k - 1)
-                .findAny()
-                .get();
+        return root.val;
+    }
+
+    public int kthSmallestRecursive(TreeNode root, int k) {
+        AtomicInteger result = new AtomicInteger();
+        traverseRecursively(root, new AtomicInteger(k), result);
+        return result.get();
+    }
+
+    private void traverseRecursively(TreeNode root, AtomicInteger k, AtomicInteger result) {
+        if (root != null) {
+            traverseRecursively(root.left, k, result);
+            int kDecremented = k.decrementAndGet();
+            if (kDecremented == 0) {
+                result.set(root.val);
+                return;
+            }
+            if (kDecremented < 0) {
+                return;
+            }
+            traverseRecursively(root.right, k, result);
+        }
     }
 }
