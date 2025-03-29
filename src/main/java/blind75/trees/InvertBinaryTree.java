@@ -5,7 +5,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class InvertBinaryTree {
-    //time - O(n), space - O(n)
+    //time - O(n), space - O(logn)
     public TreeNode invertTreeBFS(TreeNode root) {
         if (root == null) {
             return null;
@@ -31,8 +31,8 @@ public class InvertBinaryTree {
         return root;
     }
 
-    //time - O(n), space - O(n)
-    public TreeNode invertTreeDFS(TreeNode root) {
+    //time - O(n), space - O(logn)
+    public TreeNode invertTreeIterativeDFS(TreeNode root) {
         if (root == null) {
             return null;
         }
@@ -57,9 +57,8 @@ public class InvertBinaryTree {
         return root;
     }
 
-    //recursive DFS
     //time - O(n), space - O(n)
-    public TreeNode invertTreeRecursively(TreeNode root) {
+    public TreeNode invertTreeRecursivelyDFS(TreeNode root) {
         if (root == null) {
             return null;
         }
@@ -67,8 +66,8 @@ public class InvertBinaryTree {
         TreeNode temp = root.left;
         root.left = root.right;
         root.right = temp;
-        invertTreeRecursively(root.left);
-        invertTreeRecursively(root.right);
+        invertTreeRecursivelyDFS(root.left);
+        invertTreeRecursivelyDFS(root.right);
         return root;
     }
 }
