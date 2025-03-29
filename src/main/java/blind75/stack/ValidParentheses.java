@@ -12,6 +12,7 @@ public class ValidParentheses {
 
     private static final List<Character> OPEN_BRACKETS = List.of('{', '(', '[');
 
+    //time - O(n), space - O(n)
     public boolean isValid(String s) {
         Stack<Character> openBrackets = new Stack<>();
         int length = s.length();
