@@ -20,6 +20,7 @@ public class MaximumDepthOfBinaryTree {
                 new MaximumDepthOfBinaryTree().maxDepthIterativeDFS(Helper.build(3, 9, 20, null, null, 15, 7)));
     }
 
+    //time - O(n), space - O(n)
     public int maxDepthRecursiveDFS(TreeNode root) {
         if (root == null) {
             return 0;
@@ -30,6 +31,7 @@ public class MaximumDepthOfBinaryTree {
         return Math.max(leftMaxDepth, rightMaxDepth) + 1;
     }
 
+    //time - O(n), space - O(logn)
     public int maxDepthIterativeDFS(TreeNode root) {
         if (root == null) {
             return 0;
@@ -65,6 +67,7 @@ public class MaximumDepthOfBinaryTree {
         return maxDepth;
     }
 
+    //time - O(n), space - O(n)
     public int maxDepthBFS(TreeNode root) {
         if (root == null) {
             return 0;

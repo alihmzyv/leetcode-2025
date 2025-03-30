@@ -5,7 +5,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class InvertBinaryTree {
-    //time - O(n), space - O(logn)
+    //time - O(n), space - O(n)
     public TreeNode invertTreeBFS(TreeNode root) {
         if (root == null) {
             return null;
